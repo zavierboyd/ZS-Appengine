@@ -1,7 +1,5 @@
-from .zsyntaxtree import *
+from zsyntaxtree import *
 from collections import defaultdict
-import numpy as np
-from copy import deepcopy
 
 
 class EnvGetValExt:
@@ -43,13 +41,13 @@ class FuncCall:
 class Env:
     def __init__(self, repl=False):
         self.repl = repl
-        self.value = {'random': Random()}
+        self.value = {}
         self.nextval = {}
-        self.current = {'true': Boolean(True), 'false': Boolean(False), 'pi': Number(np.pi), 'e': Number(np.e)}
+        self.current = {'True': Boolean(True), 'False': Boolean(False)}
         self.defdepent = defaultdict(list)
         self.trace = []
-        self.functions = {'abs': FuncCall(abs), 'mag': FuncCall(abs), 'cos': FuncCall(np.cos), 'sin': FuncCall(np.sin)}
-        self.graph = []
+        self.functions = {'mag': FuncCall(abs)}
+        self.data = {}
         self.object = EnvGetObjExt(self)
 
     def __getitem__(self, itemflag):
@@ -81,7 +79,7 @@ class Env:
                     raise Exception('Cannot Redefine The Definition "%s"' % item)
                 else:
                      ZWarning('You are changing a variable Definition. If you wish to change this regularly use :=')
-            circle, future, random = self.circleref(item, value, flag)
+            circle, future = self.circleref(item, value, flag)
             if circle:  # Checks for Circular Referencing
                 raise Exception('Circular Reference found when defining "%s"' % item)
             elif flag == 'nxt':
@@ -91,13 +89,12 @@ class Env:
             elif flag == 'cur':
                 if future:  # Checks for Future Definitions in Current Definitions
                     raise SyntaxError('Trying to reference a Future Definition in "%s"' % item)
-                if random:
-                    raise SyntaxError('Current Definition uses "random" and is no longer functional change it!')
-                if item in self.value:  # Deletes Old Value copy of New Current Definition
-                    del self.value[item]
-                if item in self.nextval:
-                    del self.nextval[item]
-                self.current[item] = value
+                else:
+                    if item in self.value:  # Deletes Old Value copy of New Current Definition
+                        del self.value[item]
+                    if item in self.nextval:
+                        del self.nextval[item]
+                    self.current[item] = value
         elif flag == 'val':
             if not(self.repl) and (item in self.current):  # Checks for a Current Definition by the same Identifier
                 raise Exception("Can't change a Current Definition to a Variable '%s'" % item)
@@ -119,12 +116,12 @@ class Env:
             return self.trace
         elif flag == 'func':
             return self.functions
-        elif flag == 'gph':
-            return self.graph
+        elif flag == 'data':
+            return self.data
         else:
             raise Exception('The flag "%s" is not a valid flag' % flag)
 
-    def circleref(self, ident, definition, flag):
+    def circleref(self, ident, prgr, flag):
         """ident: a String of the Definition Identifier
         prgr: an Object that contains the Definition Program
 
@@ -132,13 +129,12 @@ class Env:
         First Bool tells if there is circle reference
         Second Bool tells if it references a future definition
         Example: (True, False)"""
-        definition = deepcopy(definition)
+
         test = TestEnv()
         if flag == 'nxt':
             ident += '_'
-        definition(test)
+        prgr(test)
         future = len(test.object['nxt']) != 0
-        random = 'random' in test.object['cur']
         self.defdepent[ident] = list(test.object['nxt'].keys()) + list(test.object['cur'].keys())
 
         def findfuncs(dependent, ident, var):
@@ -150,44 +146,45 @@ class Env:
                     return findfuncs(dependent, ident, func)
         circle = findfuncs(self.defdepent, ident, ident)
         ident = ident[:-1]
-        return circle, future, random
+        return circle, future
 
     def tracevar(self, item):
         if item not in self.trace:
             self.trace.append(item)
 
-    def graphvars(self, x, y):
-        if (x, y) not in self.graph:
-            self.graph.append((x, y))
+    def __pyrepr__(self):
+        edit = self.defdepent.__repr__()
+        reprdefdepent = edit[:12] + edit[19:23] + edit[25:]
+
+        return 'Env({0}, {1}, {2}, {3}, {4}, {5})'.format(self.value.__repr__(),
+                                                               self.current.__repr__(),
+                                                               self.nextval.__repr__(),
+                                                               reprdefdepent,
+                                                               self.trace.__repr__(),
+                                                               self.functions.__repr__())
 
     def __repr__(self):
-        value = self.value.copy()
-        del value['random']
-
         current = self.current.copy()
-        del current['true']
-        del current['false']
-        del current['pi']
-        del current['e']
+        del current['xh']
+        del current['yh']
+        del current['True']
+        del current['False']
         program = ''
 
-        value = ';\n'.join([repr(SetVar(var, val)) for var, val in value.items()])
+        value = '\n'.join([repr(SetVar(var, val)) for var, val in self.value.items()])
         if value:
-            program += value + ';\n'
+            program += value + '\n'
 
-        current = ';\n'.join([repr(SetDef(var, val, True)) for var, val in current.items()])
+        current = '\n'.join([repr(SetDef(var, val, True)) for var, val in current.items()])
         if current:
-            program += current + ';\n'
+            program += current + '\n'
 
-        nextval = ';\n'.join([repr(SetDef(var, val, False)) for var, val in self.nextval.items()])
+        nextval = '\n'.join([repr(SetDef(var, val, False)) for var, val in self.nextval.items()])
         if nextval:
-            program += nextval + ';\n'
+            program += nextval + '\n'
 
         for var in self.trace:
-            program += repr(Trace(var)) + ';\n'
-
-        for x, y in self.graph:
-            program += repr(Graph(x, y)) + ';\n'
+            program += repr(Trace(var)) + '\n'
 
         return program
 

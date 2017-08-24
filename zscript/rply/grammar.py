@@ -1,6 +1,5 @@
-from .errors import ParserGeneratorError
-
-from .utils import iteritems
+from errors import ParserGeneratorError
+from utils import iteritems
 
 
 def rightmost_terminal(symbols, terminals):

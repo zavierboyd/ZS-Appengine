@@ -1,4 +1,4 @@
-from .rply import LexerGenerator
+from rply import LexerGenerator
 
 lg = LexerGenerator()
 
@@ -40,7 +40,7 @@ lg.add('SPC', r' +')
 lexer = lg.build()
 
 if __name__ == '__main__':
-    from zscript.rply import *
+    from rply import *
     test = """a := 1;b := 2;c := 1;d2 = b^2 - 4*a*c;x1 = -b + d2^0.5;x2 = -b - d2^0.5;[a, b, c, d2, x1, x2];"""
     # for token in lexer.lex(test):
     #     print token
@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
     t = []
     try:
-        print(list(lexer.lex(test)))
+        print list(lexer.lex(test))
     except Exception as e:
         l = e.source_pos.lineno
         c = e.source_pos.idx

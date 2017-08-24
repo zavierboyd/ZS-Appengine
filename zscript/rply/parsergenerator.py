@@ -6,11 +6,10 @@ import string
 import sys
 import warnings
 
-from .errors import ParserGeneratorError, ParserGeneratorWarning
-from .parser import LRParser
-from .utils import Counter, IdentityDict, iteritems, itervalues
-
-from .grammar import Grammar
+from utils import Counter, IdentityDict, iteritems, itervalues
+from grammar import Grammar
+from parser import LRParser
+from errors import ParserGeneratorError, ParserGeneratorWarning
 
 LARGE_VALUE = sys.maxsize
 

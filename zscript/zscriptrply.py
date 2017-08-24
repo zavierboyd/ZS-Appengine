@@ -1,5 +1,5 @@
-from .rply import *
-from .zsyntaxtree import *
+from rply import *
+from zsyntaxtree import *
 
 # 'NUMBER', 'IDENT',
 # 'ADD', 'SUB', 'MUL', 'DIV', 'EXP', 'DEF', 'EQ', 'COMP',

@@ -1,6 +1,5 @@
-from .token import SourcePosition, Token
-
-from .errors import LexingError
+from errors import LexingError
+from token import SourcePosition, Token
 
 
 class Lexer(object):

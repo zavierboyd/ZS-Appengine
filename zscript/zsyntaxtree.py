@@ -1,8 +1,7 @@
-import operator as op
-import random as rdm
 from collections import defaultdict
-
-from .rply.token import BaseBox
+from rply.token import BaseBox
+from zgraph import graph
+import operator as op
 
 
 class ZWarning(Warning):
@@ -88,17 +87,6 @@ class Boolean(Literal):
         return str(self.val)
 
 
-class Random(Literal):
-    def __init__(self):
-        pass
-
-    def __call__(self, env, flag=None):
-        return rdm.random()
-
-    def __repr__(self):
-        return 'random'
-
-
 class Vector(Literal):
     def __init__(self, x, y):
         self.x = x
@@ -178,10 +166,7 @@ class Function(Base):
         return function(self.inpt, flag)
 
     def __repr__(self):
-        inpt = repr(self.inpt)
-        if self.precedence > self.inpt.precedence:
-            inpt = '(' + inpt + ')'
-        return self.func + ' ' + inpt
+        return self.func + ' ' + repr(self.inpt)
 
 
 class Next(Base):
@@ -190,60 +175,37 @@ class Next(Base):
 
     def __call__(self, env, flag=None):
         tenv = env.object['trc']
-        genv = env.object['gph']
         nenv = env.object['nxt']
-        vars = tenv
-        # for x, y in genv:
-        #     if x not in vars:
-        #         vars.append(x)
-        #     if y not in vars and y is not None:
-        #         vars.append(y)
+        denv = env.object['data']
+        def f(data, var): data[var] = []
+        def adddata(trce, data):
+            c = []
+            for var in trce:
+                val = env[var, 'cur']
+                c.append(val)
+                data[var].append(val)
+            return c
 
-        dictdata = lambda vars: {var: env[var, 'cur'] for var in vars}
-
-        def loop():
+        [f(denv, var) for var in tenv]
+        c = adddata(tenv, denv)
+        yield c
+        for i in xrange(self.loops):
             newvalues = env.object['val'].copy()
             for var, eq in nenv.items():
                 try:
                     v = Literal(eq(env, flag))
                 except Exception as e:
-                    args = ', '.join([i for i in e.args if type(i) in (str,)])
+                    message = e.message
+                    args = str(e.args)[1:-1]
                     error = e.__class__()
-                    error.message = args + '\nThere was an error while updating "%s"\n%s_ = %s' % (var, var, eq)
+                    error.message = args+message+'\nThere was an error while updating "%s"\n%s_ = %s' % (var, var, eq)
+
                     raise error
                 newvalues[var] = v
             env.object['val'] = newvalues
-            c = dictdata(vars)
-            return c
-
-        def n1():
-            c = dictdata(vars)
-            c['#'] = 0
+            c = adddata(tenv, denv)
+            #print(c)
             yield c
-            for i in range(self.loops):
-                c = loop()
-                c['#'] = i+1
-                yield c
-
-        def n2():
-            def i():
-                c = dictdata(vars)
-                c['#'] = 0
-                i = 1
-                yield c
-                while True:
-                    c = loop()
-                    c['#'] = i
-                    i += 1
-                    yield c
-            yield i()
-
-        if self.loops > 0:
-            r = n1()
-        else:
-            r = n2()
-
-        return r
 
     def __repr__(self):
         return 'next ' + str(self.loops)
@@ -278,19 +240,14 @@ class Graph(Base):
         self.y = y
 
     def __call__(self, env, flag=None):
-        env.graphvars(self.x, self.y)
-
-    def __repr__(self):
-        r = 'graph ' + self.x
-        if self.y is not None:
-            r += ' ' + self.y
-        return r
+        data = env.object['data']
+        yield graph(data, self.x, self.y)
 
 
 class BinOp(Base):
     ops = {'^': (op.pow, 8),
            '*': (op.mul, 7),
-           '/': (op.truediv, 6),
+           '/': (op.div, 6),
            '-': (op.sub, 5),
            '+': (op.add, 5),
            '==': (op.eq, 4),

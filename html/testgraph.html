@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<style>
+
+</style>
+
+<div id="fig_el811644378604322271759321"></div>
+<script>
+function mpld3_load_lib(url, callback){
+  var s = document.createElement('script');
+  s.src = url;
+  s.async = true;
+  s.onreadystatechange = s.onload = callback;
+  s.onerror = function(){console.warn("failed to load library " + url);};
+  document.getElementsByTagName("head")[0].appendChild(s);
+}
+
+if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
+   // already loaded: just create the figure
+   !function(mpld3){
+
+       mpld3.draw_figure("fig_el811644378604322271759321", {"axes": [{"xlim": [20.5, 31.5], "yscale": "linear", "axesbg": "#FFFFFF", "texts": [], "zoomable": true, "images": [], "xdomain": [20.5, 31.5], "ylim": [20.5, 31.5], "paths": [], "sharey": [], "sharex": [], "axesbgalpha": null, "axes": [{"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "bottom", "nticks": 7, "tickvalues": null}, {"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "left", "nticks": 7, "tickvalues": null}], "lines": [{"color": "#1F77B4", "yindex": 1, "coordinates": "data", "dasharray": "10,0", "zorder": 2, "alpha": 1, "xindex": 0, "linewidth": 1.5, "data": "data01", "id": "el81164659969872"}], "markers": [], "id": "el81164601557904", "ydomain": [20.5, 31.5], "collections": [], "xscale": "linear", "bbox": [0.125, 0.10999999999999999, 0.775, 0.77]}], "height": 480.0, "width": 640.0, "plugins": [{"type": "reset"}, {"enabled": false, "button": true, "type": "zoom"}, {"enabled": false, "button": true, "type": "boxzoom"}], "data": {"data01": [[21.0, 21.0], [22.0, 22.0], [23.0, 23.0], [24.0, 24.0], [25.0, 25.0], [26.0, 26.0], [27.0, 27.0], [28.0, 28.0], [29.0, 29.0], [30.0, 30.0], [31.0, 31.0]]}, "id": "el81164437860432"});
+   }(mpld3);
+}else if(typeof define === "function" && define.amd){
+   // require.js is available: use it to load d3/mpld3
+   require.config({paths: {d3: "https://mpld3.github.io/js/d3.v3.min"}});
+   require(["d3"], function(d3){
+      window.d3 = d3;
+      mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.2.js", function(){
+
+         mpld3.draw_figure("fig_el811644378604322271759321", {"axes": [{"xlim": [20.5, 31.5], "yscale": "linear", "axesbg": "#FFFFFF", "texts": [], "zoomable": true, "images": [], "xdomain": [20.5, 31.5], "ylim": [20.5, 31.5], "paths": [], "sharey": [], "sharex": [], "axesbgalpha": null, "axes": [{"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "bottom", "nticks": 7, "tickvalues": null}, {"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "left", "nticks": 7, "tickvalues": null}], "lines": [{"color": "#1F77B4", "yindex": 1, "coordinates": "data", "dasharray": "10,0", "zorder": 2, "alpha": 1, "xindex": 0, "linewidth": 1.5, "data": "data01", "id": "el81164659969872"}], "markers": [], "id": "el81164601557904", "ydomain": [20.5, 31.5], "collections": [], "xscale": "linear", "bbox": [0.125, 0.10999999999999999, 0.775, 0.77]}], "height": 480.0, "width": 640.0, "plugins": [{"type": "reset"}, {"enabled": false, "button": true, "type": "zoom"}, {"enabled": false, "button": true, "type": "boxzoom"}], "data": {"data01": [[21.0, 21.0], [22.0, 22.0], [23.0, 23.0], [24.0, 24.0], [25.0, 25.0], [26.0, 26.0], [27.0, 27.0], [28.0, 28.0], [29.0, 29.0], [30.0, 30.0], [31.0, 31.0]]}, "id": "el81164437860432"});
+      });
+    });
+}else{
+    // require.js not available: dynamically load d3 & mpld3
+    mpld3_load_lib("https://mpld3.github.io/js/d3.v3.min.js", function(){
+         mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.2.js", function(){
+
+                 mpld3.draw_figure("fig_el811644378604322271759321", {"axes": [{"xlim": [20.5, 31.5], "yscale": "linear", "axesbg": "#FFFFFF", "texts": [], "zoomable": true, "images": [], "xdomain": [20.5, 31.5], "ylim": [20.5, 31.5], "paths": [], "sharey": [], "sharex": [], "axesbgalpha": null, "axes": [{"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "bottom", "nticks": 7, "tickvalues": null}, {"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "left", "nticks": 7, "tickvalues": null}], "lines": [{"color": "#1F77B4", "yindex": 1, "coordinates": "data", "dasharray": "10,0", "zorder": 2, "alpha": 1, "xindex": 0, "linewidth": 1.5, "data": "data01", "id": "el81164659969872"}], "markers": [], "id": "el81164601557904", "ydomain": [20.5, 31.5], "collections": [], "xscale": "linear", "bbox": [0.125, 0.10999999999999999, 0.775, 0.77]}], "height": 480.0, "width": 640.0, "plugins": [{"type": "reset"}, {"enabled": false, "button": true, "type": "zoom"}, {"enabled": false, "button": true, "type": "boxzoom"}], "data": {"data01": [[21.0, 21.0], [22.0, 22.0], [23.0, 23.0], [24.0, 24.0], [25.0, 25.0], [26.0, 26.0], [27.0, 27.0], [28.0, 28.0], [29.0, 29.0], [30.0, 30.0], [31.0, 31.0]]}, "id": "el81164437860432"});
+            })
+         });
+}
+</script>-->
+<style>
+
+</style>
+
+<div id="fig_el835043325481765982962600"></div>
+<script>
+function mpld3_load_lib(url, callback){
+  var s = document.createElement('script');
+  s.src = url;
+  s.async = true;
+  s.onreadystatechange = s.onload = callback;
+  s.onerror = function(){console.warn("failed to load library " + url);};
+  document.getElementsByTagName("head")[0].appendChild(s);
+}
+
+if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
+   // already loaded: just create the figure
+   !function(mpld3){
+
+       mpld3.draw_figure("fig_el835043325481765982962600", {"axes": [{"xlim": [0.5, 11.5], "yscale": "linear", "axesbg": "#FFFFFF", "texts": [], "zoomable": true, "images": [], "xdomain": [0.5, 11.5], "ylim": [0.5, 11.5], "paths": [], "sharey": [], "sharex": [], "axesbgalpha": null, "axes": [{"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "bottom", "nticks": 7, "tickvalues": null}, {"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "left", "nticks": 7, "tickvalues": null}], "lines": [{"color": "#1F77B4", "yindex": 1, "coordinates": "data", "dasharray": "10,0", "zorder": 2, "alpha": 1, "xindex": 0, "linewidth": 1.5, "data": "data01", "id": "el83504503117200"}], "markers": [], "id": "el83504495749584", "ydomain": [0.5, 11.5], "collections": [], "xscale": "linear", "bbox": [0.125, 0.10999999999999999, 0.775, 0.77]}], "height": 480.0, "width": 640.0, "plugins": [{"type": "reset"}, {"enabled": false, "button": true, "type": "zoom"}, {"enabled": false, "button": true, "type": "boxzoom"}], "data": {"data01": [[1.0, 1.0], [2.0, 2.0], [3.0, 3.0], [4.0, 4.0], [5.0, 5.0], [6.0, 6.0], [7.0, 7.0], [8.0, 8.0], [9.0, 9.0], [10.0, 10.0], [11.0, 11.0]]}, "id": "el83504332548176"});
+   }(mpld3);
+}else if(typeof define === "function" && define.amd){
+   // require.js is available: use it to load d3/mpld3
+   require.config({paths: {d3: "https://mpld3.github.io/js/d3.v3.min"}});
+   require(["d3"], function(d3){
+      window.d3 = d3;
+      mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.2.js", function(){
+
+         mpld3.draw_figure("fig_el835043325481765982962600", {"axes": [{"xlim": [0.5, 11.5], "yscale": "linear", "axesbg": "#FFFFFF", "texts": [], "zoomable": true, "images": [], "xdomain": [0.5, 11.5], "ylim": [0.5, 11.5], "paths": [], "sharey": [], "sharex": [], "axesbgalpha": null, "axes": [{"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "bottom", "nticks": 7, "tickvalues": null}, {"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "left", "nticks": 7, "tickvalues": null}], "lines": [{"color": "#1F77B4", "yindex": 1, "coordinates": "data", "dasharray": "10,0", "zorder": 2, "alpha": 1, "xindex": 0, "linewidth": 1.5, "data": "data01", "id": "el83504503117200"}], "markers": [], "id": "el83504495749584", "ydomain": [0.5, 11.5], "collections": [], "xscale": "linear", "bbox": [0.125, 0.10999999999999999, 0.775, 0.77]}], "height": 480.0, "width": 640.0, "plugins": [{"type": "reset"}, {"enabled": false, "button": true, "type": "zoom"}, {"enabled": false, "button": true, "type": "boxzoom"}], "data": {"data01": [[1.0, 1.0], [2.0, 2.0], [3.0, 3.0], [4.0, 4.0], [5.0, 5.0], [6.0, 6.0], [7.0, 7.0], [8.0, 8.0], [9.0, 9.0], [10.0, 10.0], [11.0, 11.0]]}, "id": "el83504332548176"});
+      });
+    });
+}else{
+    // require.js not available: dynamically load d3 & mpld3
+    mpld3_load_lib("https://mpld3.github.io/js/d3.v3.min.js", function(){
+         mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.2.js", function(){
+
+                 mpld3.draw_figure("fig_el835043325481765982962600", {"axes": [{"xlim": [0.5, 11.5], "yscale": "linear", "axesbg": "#FFFFFF", "texts": [], "zoomable": true, "images": [], "xdomain": [0.5, 11.5], "ylim": [0.5, 11.5], "paths": [], "sharey": [], "sharex": [], "axesbgalpha": null, "axes": [{"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "bottom", "nticks": 7, "tickvalues": null}, {"scale": "linear", "tickformat": null, "grid": {"gridOn": false}, "fontsize": 10.0, "position": "left", "nticks": 7, "tickvalues": null}], "lines": [{"color": "#1F77B4", "yindex": 1, "coordinates": "data", "dasharray": "10,0", "zorder": 2, "alpha": 1, "xindex": 0, "linewidth": 1.5, "data": "data01", "id": "el83504503117200"}], "markers": [], "id": "el83504495749584", "ydomain": [0.5, 11.5], "collections": [], "xscale": "linear", "bbox": [0.125, 0.10999999999999999, 0.775, 0.77]}], "height": 480.0, "width": 640.0, "plugins": [{"type": "reset"}, {"enabled": false, "button": true, "type": "zoom"}, {"enabled": false, "button": true, "type": "boxzoom"}], "data": {"data01": [[1.0, 1.0], [2.0, 2.0], [3.0, 3.0], [4.0, 4.0], [5.0, 5.0], [6.0, 6.0], [7.0, 7.0], [8.0, 8.0], [9.0, 9.0], [10.0, 10.0], [11.0, 11.0]]}, "id": "el83504332548176"});
+            })
+         });
+}
+</script>
+</body>
+</html>
